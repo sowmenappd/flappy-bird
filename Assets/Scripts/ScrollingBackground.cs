@@ -10,7 +10,7 @@ public class ScrollingBackground : MonoBehaviour
     void Start()
     {
         m_renderer = GetComponent<Renderer>();
-        m_renderer.material.shader = Shader.Find("Unlit/Texture");
+        //m_renderer.material.shader = Shader.Find("Unlit/Texture");
     }
 
     void Update()

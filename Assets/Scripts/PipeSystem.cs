@@ -33,7 +33,7 @@ public class PipeSystem : MonoBehaviour
 
     void Update()
     {
-        if(!m_scoreController.Started) return;
+        if(!m_scoreController.Started || m_scoreController.GameOver) return;
         m_Timer += Time.deltaTime;
 
         if(m_Timer > m_spawnInterval){

@@ -31,33 +31,44 @@ public class Bird : MonoBehaviour
 
     void Update()
     {
-        if(!m_scoreController.Started) return;
+        if(m_scoreController.Started){
+            m_verticalVelocity += gravity * Time.deltaTime;
+            m_verticalVelocity = Mathf.Clamp(m_verticalVelocity, -m_maxVerticalVelocity, m_maxVerticalVelocity);
+            transform.position += Vector3.up * m_verticalVelocity * Time.deltaTime;
+            transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.9f, 3.9f), 0);
 
-        m_verticalVelocity += gravity * Time.deltaTime;
+            m_rotation += ((transform.position.y > m_lastKnownHeight) ? 8 : -5f) * Time.deltaTime * m_torque;
+            m_rotation = Mathf.Clamp(m_rotation, -89, 30);
+            transform.rotation = Quaternion.Euler(0, 0, m_rotation);
+            m_lastKnownHeight = transform.position.y;
+        }
+        else 
+            return;
         
+        if(m_scoreController.GameOver) {
+            return;
+        }
         if(Input.GetKeyDown(KeyCode.Space) && m_jumpTimer >= m_jumpEnableThresholdTime){
             m_verticalVelocity += jumpVelocity;
             m_jumpTimer = 0;
         }
-
-        m_verticalVelocity = Mathf.Clamp(m_verticalVelocity, -m_maxVerticalVelocity, m_maxVerticalVelocity);
-        transform.position += Vector3.up * m_verticalVelocity * Time.deltaTime;
-        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.9f, 3.9f), 0);
-    
         m_jumpTimer += Time.deltaTime;
-
-        m_rotation += ((transform.position.y > m_lastKnownHeight) ? 3 : -3) * Time.deltaTime * m_torque;
-        m_rotation = Mathf.Clamp(m_rotation, -30, 30);
-        //print((transform.position.y > m_lastKnownHeight) ? "ascending" : "descending");
-        transform.rotation = Quaternion.Euler(0, 0, m_rotation);
-        m_lastKnownHeight = transform.position.y;
-
     }
 
     void OnCollisionEnter2D(Collision2D col){
         if(col.collider.tag == "Respawn"){
-            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            transform.GetChild(0).GetComponent<Animator>().enabled = false;
+            m_scoreController.EndGame();
+            this.enabled = false;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col){
+        if(col.tag == "Respawn"){
+            //GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            //GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            transform.GetChild(0).GetComponent<Animator>().enabled = false;
             m_scoreController.EndGame();
         }
     }

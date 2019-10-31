@@ -9,10 +9,15 @@ public class ScoreController : MonoBehaviour
     public bool Started{
         get; private set;
     }
+    public bool GameOver{
+        get; private set;
+    }
 
     public TextMeshProUGUI scoreText;
 
     public CanvasGroup hintPanel;
+    public Transform gameOverPanel;
+    public Transform menuPanel;
 
     private static ScoreController m_instance;
     public static ScoreController Instance{
@@ -32,12 +37,13 @@ public class ScoreController : MonoBehaviour
     void Start()
     {
         Started = false;
+        GameOver = false;
         scoreText.gameObject.SetActive(false);
         Score = 0;
     }
 
     void Update(){
-        if(!Started && Input.GetKeyDown(KeyCode.Space)){
+        if(!Started && !GameOver && Input.GetKeyDown(KeyCode.Space)){
             Started = true;
         } else if(Started){
             hintPanel.alpha -= Time.deltaTime * 3f;
@@ -53,9 +59,16 @@ public class ScoreController : MonoBehaviour
     }
 
     public void EndGame(){
-        Started = false;
-        print("game over");
-        //more ui to show
+        if(GameOver) return;
+
+        GameOver = true;
+        gameOverPanel.gameObject.SetActive(true);
+        menuPanel.gameObject.SetActive(false);
+        scoreText.gameObject.SetActive(false);
+    }
+
+    public void LoadMenu(){
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 
 }

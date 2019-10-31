@@ -56,6 +56,8 @@ public class Bird : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col){
         if(col.collider.tag == "Respawn"){
+            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             m_scoreController.EndGame();
         }
     }

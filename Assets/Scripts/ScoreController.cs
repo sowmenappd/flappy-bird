@@ -54,6 +54,7 @@ public class ScoreController : MonoBehaviour
 
     public void EndGame(){
         Started = false;
+        print("game over");
         //more ui to show
     }
 

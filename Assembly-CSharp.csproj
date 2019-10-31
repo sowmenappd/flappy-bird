@@ -2,6 +2,8 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
+    <CscToolPath>/home/sowmen/Unity/Hub/Editor/2019.3.0b8/Editor/Data/Tools/RoslynScripts</CscToolPath>
+    <CscToolExe>unity_csc.sh</CscToolExe>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -44,7 +46,16 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
-  <ItemGroup>     <Compile Include="Assets\Scripts\Bird.cs" />
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>/home/sowmen/Unity/Hub/Editor/2019.3.0b8/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>/home/sowmen/Unity/Hub/Editor/2019.3.0b8/Editor/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\Scripts\Bird.cs" />
      <Compile Include="Assets\Scripts\ItemBobAnimate.cs" />
      <Compile Include="Assets\Scripts\PipeScorePoint.cs" />
      <Compile Include="Assets\Scripts\PipeSystem.cs" />
@@ -111,9 +122,6 @@
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>/media/sowmen/Code Testing/flappy-birds/flappy-birds-knock-off/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine">
- <HintPath>/home/sowmen/Unity/Hub/Editor/2019.3.0b8/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>/home/sowmen/Unity/Hub/Editor/2019.3.0b8/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -288,9 +296,6 @@
  </Reference>
  <Reference Include="UnityEngine.XRModule">
  <HintPath>/home/sowmen/Unity/Hub/Editor/2019.3.0b8/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor">
- <HintPath>/home/sowmen/Unity/Hub/Editor/2019.3.0b8/Editor/Data/Managed/UnityEditor.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>/home/sowmen/Unity/Hub/Editor/2019.3.0b8/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

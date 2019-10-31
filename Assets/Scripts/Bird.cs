@@ -17,17 +17,24 @@ public class Bird : MonoBehaviour
     private float m_rotation;
     [SerializeField] private float m_torque;
 
+    private bool m_canScore = true;
+    
+    private ScoreController m_scoreController;
+
     void Start()
     {
         m_verticalVelocity = 0;
         m_jumpTimer = 0;
         m_rotation = 0;
+        m_scoreController = ScoreController.Instance;
     }
 
     void Update()
     {
-        m_verticalVelocity += gravity * Time.deltaTime;
+        if(!m_scoreController.Started) return;
 
+        m_verticalVelocity += gravity * Time.deltaTime;
+        
         if(Input.GetKeyDown(KeyCode.Space) && m_jumpTimer >= m_jumpEnableThresholdTime){
             m_verticalVelocity += jumpVelocity;
             m_jumpTimer = 0;
@@ -41,8 +48,15 @@ public class Bird : MonoBehaviour
 
         m_rotation += ((transform.position.y > m_lastKnownHeight) ? 3 : -3) * Time.deltaTime * m_torque;
         m_rotation = Mathf.Clamp(m_rotation, -30, 30);
-        print((transform.position.y > m_lastKnownHeight) ? "ascending" : "descending");
+        //print((transform.position.y > m_lastKnownHeight) ? "ascending" : "descending");
         transform.rotation = Quaternion.Euler(0, 0, m_rotation);
         m_lastKnownHeight = transform.position.y;
+
+    }
+
+    void OnCollisionEnter2D(Collision2D col){
+        if(col.collider.tag == "Respawn"){
+            m_scoreController.EndGame();
+        }
     }
 }

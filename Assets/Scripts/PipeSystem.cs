@@ -16,8 +16,10 @@ public class PipeSystem : MonoBehaviour
     public Transform spawnPoint;
     public Transform pullBackPoint;
 
-    List<Transform> m_spawnedPipes;
-    Queue<Transform> m_pool;
+    private List<Transform> m_spawnedPipes;
+    private Queue<Transform> m_pool;
+
+    private ScoreController m_scoreController;
 
     void Start()
     {
@@ -25,11 +27,13 @@ public class PipeSystem : MonoBehaviour
         m_spawnInterval = Random.Range(spawnIntervalRange.x, spawnIntervalRange.y);
         m_spawnedPipes = new List<Transform>();
         m_pool = new Queue<Transform>(5);
+        m_scoreController = ScoreController.Instance;
         pipeHolder = transform.GetChild(4);
     }
 
     void Update()
     {
+        if(!m_scoreController.Started) return;
         m_Timer += Time.deltaTime;
 
         if(m_Timer > m_spawnInterval){
@@ -54,5 +58,9 @@ public class PipeSystem : MonoBehaviour
             } 
         }
 
+    }
+
+    public List<Transform> GetPipes(){
+        return m_spawnedPipes;
     }
 }

@@ -46,10 +46,14 @@
   </PropertyGroup>
   <ItemGroup>     <Compile Include="Assets\Scripts\Bird.cs" />
      <Compile Include="Assets\Scripts\ItemBobAnimate.cs" />
+     <Compile Include="Assets\Scripts\PipeScorePoint.cs" />
      <Compile Include="Assets\Scripts\PipeSystem.cs" />
+     <Compile Include="Assets\Scripts\ScoreController.cs" />
      <Compile Include="Assets\Scripts\ScrollingBackground.cs" />
+     <None Include="Assets\Fonts\thirteen-pixel-fonts\license.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+     <None Include="Assets\Fonts\thirteen-pixel-fonts\readme.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />

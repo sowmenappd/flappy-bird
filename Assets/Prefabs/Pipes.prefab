@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 2120100886723972152}
   - component: {fileID: 594010654509875428}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: upper
   m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 2120100887030152003}
   - component: {fileID: 2950234126848519276}
   m_Layer: 0
-  m_Name: New Sprite (1)
+  m_Name: lower
   m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

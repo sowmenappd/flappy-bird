@@ -6,8 +6,8 @@ public class Bird : MonoBehaviour
 {
     private const float gravity = -19.62f;
     [SerializeField] private float jumpVelocity;
-    [SerializeField] private float m_verticalVelocity;
     [SerializeField] private float m_maxVerticalVelocity;
+    private float m_verticalVelocity;
 
     private const float m_jumpEnableThresholdTime = .25f;
     private float m_jumpTimer;
@@ -37,7 +37,7 @@ public class Bird : MonoBehaviour
             transform.position += Vector3.up * m_verticalVelocity * Time.deltaTime;
             transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.9f, 3.9f), 0);
 
-            m_rotation += ((transform.position.y > m_lastKnownHeight) ? 8 : -5f) * Time.deltaTime * m_torque;
+            m_rotation += ((transform.position.y > m_lastKnownHeight) ? 8 : -4f) * Time.deltaTime * m_torque;
             m_rotation = Mathf.Clamp(m_rotation, -89, 30);
             transform.rotation = Quaternion.Euler(0, 0, m_rotation);
             m_lastKnownHeight = transform.position.y;

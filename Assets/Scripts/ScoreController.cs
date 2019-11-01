@@ -65,6 +65,20 @@ public class ScoreController : MonoBehaviour
         gameOverPanel.gameObject.SetActive(true);
         menuPanel.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
+        
+        ProcessScore(Score);
+    }
+
+    private void ProcessScore(int Score){
+        gameOverPanel.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().SetText(Score.ToString());
+        int currentScore = PlayerPrefs.GetInt("Highscore", 0);
+        if(Score > currentScore){
+            PlayerPrefs.SetInt("Highscore", Score);
+            gameOverPanel.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().SetText(Score.ToString());
+            gameOverPanel.GetChild(2).GetChild(2).gameObject.SetActive(true);
+        } else {
+           gameOverPanel.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().SetText(currentScore.ToString()); 
+        }
     }
 
     public void LoadMenu(){

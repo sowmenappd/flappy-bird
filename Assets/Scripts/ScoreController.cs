@@ -70,14 +70,33 @@ public class ScoreController : MonoBehaviour
     }
 
     private void ProcessScore(int Score){
-        gameOverPanel.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().SetText(Score.ToString());
+        StartCoroutine(AnimateScoreCountUp(Score));
         int currentScore = PlayerPrefs.GetInt("Highscore", 0);
         if(Score > currentScore){
             PlayerPrefs.SetInt("Highscore", Score);
-            gameOverPanel.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().SetText(Score.ToString());
+            gameOverPanel.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().SetText(Score.ToString()); 
             gameOverPanel.GetChild(2).GetChild(2).gameObject.SetActive(true);
         } else {
            gameOverPanel.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>().SetText(currentScore.ToString()); 
+        }
+    }
+
+    private IEnumerator AnimateScoreCountUp(int Score){
+        int score = 0;
+        float speed1 = 0.01f;
+        float speed2 = 0.02f; 
+        float speedF = 10f * speed1; 
+        float per = speed1;
+        float progress = 0f;
+
+        yield return new WaitForSeconds(1.5f);
+        while(score < Score){
+            ++score;
+            progress = score * 1f / Score;
+            per = (progress < 0.5f) ? speed1 : (progress < 0.85f ) ? speed2 : speedF;
+            gameOverPanel.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().SetText(score.ToString());
+            yield return new WaitForSeconds(per);
+            print(per);
         }
     }
 

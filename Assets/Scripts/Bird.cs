@@ -21,6 +21,8 @@ public class Bird : MonoBehaviour
     
     private ScoreController m_scoreController;
 
+    private const string flapSound = "wing";
+
     void Start()
     {
         m_verticalVelocity = 0;
@@ -49,6 +51,7 @@ public class Bird : MonoBehaviour
             return;
         }
         if(Input.GetKeyDown(KeyCode.Space) && m_jumpTimer >= m_jumpEnableThresholdTime){
+            AudioManager.Instance.Play(flapSound, true);
             m_verticalVelocity += jumpVelocity;
             m_jumpTimer = 0;
         }
@@ -59,6 +62,9 @@ public class Bird : MonoBehaviour
         if(col.collider.tag == "Respawn"){
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             transform.GetChild(0).GetComponent<Animator>().enabled = false;
+            if(!m_scoreController.GameOver){
+                AudioManager.Instance.Play("hit", true);
+            }
             m_scoreController.EndGame();
             this.enabled = false;
         }
@@ -66,10 +72,12 @@ public class Bird : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col){
         if(col.tag == "Respawn"){
-            //GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-            //GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             transform.GetChild(0).GetComponent<Animator>().enabled = false;
-            m_scoreController.EndGame();
+            GetComponent<Rigidbody2D>().gravityScale = 1f;
+            if(!m_scoreController.GameOver){
+                AudioManager.Instance.Play("hit", true);
+            }
+            m_scoreController.EndGame(true);
         }
     }
 }

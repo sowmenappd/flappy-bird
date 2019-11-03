@@ -58,13 +58,17 @@ public class ScoreController : MonoBehaviour
         scoreText.text = Score.ToString();
     }
 
-    public void EndGame(){
+    public void EndGame(bool playLoseSound = false){
         if(GameOver) return;
 
         GameOver = true;
         gameOverPanel.gameObject.SetActive(true);
+        if(playLoseSound)
+            AudioManager.Instance.PlayAfter("die", false, 0.5f);
+
         menuPanel.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
+        GameObject.Find("Camera Flash").GetComponent<Animator>().SetTrigger("flash");
         
         ProcessScore(Score);
     }

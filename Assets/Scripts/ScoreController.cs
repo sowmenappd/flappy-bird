@@ -43,7 +43,7 @@ public class ScoreController : MonoBehaviour
     }
 
     void Update(){
-        if(!Started && !GameOver && Input.GetKeyDown(KeyCode.Space)){
+        if(!Started && !GameOver && Input.GetMouseButtonDown(0)){
             Started = true;
         } else if(Started){
             hintPanel.alpha -= Time.deltaTime * 3f;

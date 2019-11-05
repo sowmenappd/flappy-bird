@@ -50,7 +50,7 @@ public class Bird : MonoBehaviour
         if(m_scoreController.GameOver) {
             return;
         }
-        if(Input.GetKeyDown(KeyCode.Space) && m_jumpTimer >= m_jumpEnableThresholdTime){
+        if(Input.GetMouseButtonDown(0) && m_jumpTimer >= m_jumpEnableThresholdTime){
             AudioManager.Instance.Play(flapSound, true);
             m_verticalVelocity += jumpVelocity;
             m_jumpTimer = 0;
